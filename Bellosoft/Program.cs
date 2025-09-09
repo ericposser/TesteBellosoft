@@ -1,4 +1,8 @@
 
+using Bellosoft.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace Bellosoft
 {
     public class Program
@@ -6,6 +10,9 @@ namespace Bellosoft
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<Context>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
 
