@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Globalization;
 
 namespace Bellosoft.Controllers
 {
@@ -52,6 +53,35 @@ namespace Bellosoft.Controllers
             await _db.SaveChangesAsync(ct);
 
             return Ok(entity);
+        }
+
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<NasaApod>>> GetAll(CancellationToken ct)
+        {
+            var list = await _db.NasaApods
+                .AsNoTracking()
+                .ToListAsync(ct);
+
+            return Ok(list);
+        }
+
+        [HttpGet("date")]
+        public async Task<ActionResult<NasaApod>> GetByDate([FromQuery] string date, CancellationToken ct)
+        {
+            if (!DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture,
+                                        DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                        out var targetDate))
+            {
+                return BadRequest(new { error = "Formato de data inválido. Use yyyy-MM-dd." });
+            }
+
+            var item = await _db.NasaApods
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Date.Date == targetDate.Date, ct);
+
+            if (item is null) return NotFound(new { error = "Nenhum APOD encontrado para a data informada." });
+
+            return Ok(item);
         }
     }
 }

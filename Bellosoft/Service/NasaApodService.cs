@@ -29,6 +29,7 @@ namespace Bellosoft.Service
            
             return await _http.GetFromJsonAsync<NasaApod>(url, cancellationToken: ct);
         }
+
     }
 }
 
