@@ -1,0 +1,48 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio folders
+.vs/
+
+# Logs
+*.log
+
+# Configuration (não versionar configs sensíveis)
+appsettings.json
+appsettings.*.json
+secrets.json
+
+# Packages
+*.nupkg
+*.snupkg
+*.nuspec
+*.bak
+*.Backup
+*.tmp
+
+# Dependency folders
+packages/
+node_modules/
+
+# Coverage and test results
+*.coverage
+*.coveragexml
+TestResult*/
+*.trx
+
+# Publish folders
+publish/
+*.Publish.xml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
