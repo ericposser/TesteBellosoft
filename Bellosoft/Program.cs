@@ -1,5 +1,7 @@
 
+using Bellosoft.Interfaces;
 using Bellosoft.Models;
+using Bellosoft.Service;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -13,6 +15,8 @@ namespace Bellosoft
 
             builder.Services.AddDbContext<Context>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddHttpClient<INasaApod, NasaApodService>();
 
             // Add services to the container.
 
